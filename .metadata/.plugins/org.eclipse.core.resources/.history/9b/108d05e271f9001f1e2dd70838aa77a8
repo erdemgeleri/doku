@@ -1,0 +1,78 @@
+package com.doku.frames.SocketTest;
+
+import javax.swing.*;
+import java.io.*;
+import java.net.*;
+
+public class ClientFrame extends JFrame {
+    private JTextField messageField;
+    private JTextArea textArea;
+    private Socket socket;
+    private PrintWriter writer;
+    private BufferedReader reader;
+
+    public ClientFrame() {
+        setTitle("Client");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        messageField = new JTextField();
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+
+        JButton sendButton = new JButton("Send");
+        sendButton.addActionListener(e -> sendMessage());
+
+        add(new JScrollPane(textArea), "Center");
+        add(messageField, "South");
+        add(sendButton, "North");
+
+        setVisible(true);
+
+        connectToServer();
+    }
+
+    public void connectToServer() {
+        SwingWorker<Void, String> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                try {
+                    socket = new Socket("localhost", 1234);  // Sunucuya bağlan
+                    writer = new PrintWriter(socket.getOutputStream(), true);  // Mesajları server'a gönderecek olan PrintWriter
+                    reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));  // Mesajları server'dan alacak olan BufferedReader
+                    publish("Connected to server.\n");
+
+                    // Server'dan gelen mesajları almak
+                    String message;
+                    while ((message = reader.readLine()) != null) {
+                        publish("Server: " + message + "\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    publish("Connection error: " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                for (String message : chunks) {
+                    textArea.append(message);  // Client'tan gelen mesajları ekrana yazdırıyoruz
+                }
+            }
+        };
+        worker.execute();
+    }
+
+    public void sendMessage() {
+        if (writer != null && !messageField.getText().isEmpty()) {
+            writer.println(messageField.getText());  // Mesajı server'a gönder
+            textArea.append("Client: " + messageField.getText() + "\n");  // Client mesajını GUI'de göster
+            messageField.setText("");  // Mesaj kutusunu temizle
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(ClientFrame::new);  // ClientFrame'i başlat
+    }
+}

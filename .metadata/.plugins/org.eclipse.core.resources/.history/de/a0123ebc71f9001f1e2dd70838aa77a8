@@ -1,0 +1,77 @@
+package com.doku.frames.SocketTest;
+
+import javax.swing.*;
+import java.io.*;
+import java.net.*;
+
+public class ClientFrame extends JFrame {
+    private JTextField messageField;
+    private JTextArea textArea;
+    private Socket socket;
+    private PrintWriter writer;
+
+    public ClientFrame() {
+        setTitle("Client");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        messageField = new JTextField();
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+
+        JButton sendButton = new JButton("Send");
+        sendButton.addActionListener(e -> sendMessage());
+
+        add(new JScrollPane(textArea), "Center");
+        add(messageField, "South");
+        add(sendButton, "North");
+
+        setVisible(true);
+
+        // Sunucuya bağlan
+        connectToServer();
+    }
+
+    public void connectToServer() {
+        // Bağlantıyı ayrı bir iş parçacığında yap
+        SwingWorker<Void, String> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                try {
+                    socket = new Socket("localhost", 1234);  // Sunucuya bağlan
+                    writer = new PrintWriter(socket.getOutputStream(), true);
+                    publish("Sunucuya bağlandınız.\n");
+
+                    // Mesajları göndermek için input alanını dinle
+                    while (true) {
+                        // Bağlantı aktif olduğu sürece mesajları gönder
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    publish("Bağlantı hatası: " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                for (String message : chunks) {
+                    textArea.append(message);
+                }
+            }
+        };
+        worker.execute();
+    }
+
+    public void sendMessage() {
+        if (writer != null && !messageField.getText().isEmpty()) {
+            writer.println(messageField.getText());  // Mesajı sunucuya gönder
+            textArea.append("Client: " + messageField.getText() + "\n");
+            messageField.setText("");  // Mesaj kutusunu temizle
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(ClientFrame::new);
+    }
+}

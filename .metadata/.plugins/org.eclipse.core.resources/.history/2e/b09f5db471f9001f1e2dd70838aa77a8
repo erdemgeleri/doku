@@ -1,0 +1,70 @@
+package com.doku.frames.SocketTest;
+
+import javax.swing.*;
+import java.io.*;
+import java.net.*;
+
+public class ServerFrame extends JFrame {
+    private JTextArea textArea;
+    private ServerSocket serverSocket;
+
+    public ServerFrame() {
+        setTitle("Server");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        add(new JScrollPane(textArea), "Center");
+
+        setVisible(true);
+
+        // Sunucu başlat
+        startServer();
+    }
+
+    public void startServer() {
+        // Server çalıştırmayı ayrı bir iş parçacığında başlat
+        SwingWorker<Void, String> worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                try {
+                    serverSocket = new ServerSocket(1234);
+                    publish("Sunucu başlatıldı, bağlantı bekleniyor...\n");
+
+                    while (true) {
+                        Socket socket = serverSocket.accept();  // Client'dan gelen bağlantıyı kabul et
+                        publish("Client bağlandı.\n");
+
+                        // Veri almak için InputStream oluştur
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                        String message;
+                        while ((message = reader.readLine()) != null) {
+                            publish("Client: " + message + "\n");  // Mesajı textArea'ya ekle
+                        }
+
+                        socket.close();
+                        publish("Client bağlantısı kesildi.\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    publish("Sunucu hatası: " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(java.util.List<String> chunks) {
+                for (String message : chunks) {
+                    textArea.append(message);
+                }
+            }
+        };
+        worker.execute();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(ServerFrame::new);
+    }
+}

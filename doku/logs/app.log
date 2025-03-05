@@ -1,0 +1,10 @@
+2025-03-05 06:15:31 DEBUG LogTest - Bu bir debug mesajıdır
+2025-03-05 06:15:31 INFO  LogTest - Bu bir info mesajıdır
+2025-03-05 06:15:31 WARN  LogTest - Bu bir warn mesajıdır
+2025-03-05 06:15:31 ERROR LogTest - Bu bir error mesajıdır
+2025-03-05 06:15:31 FATAL LogTest - Bu bir fatal mesajıdır
+2025-03-05 06:17:09 DEBUG LogTest - Bu bir debug mesajıdır
+2025-03-05 06:17:09 INFO  LogTest - Bu bir info mesajıdır
+2025-03-05 06:17:09 WARN  LogTest - Bu bir warn mesajıdır
+2025-03-05 06:17:09 ERROR LogTest - Bu bir error mesajıdır
+2025-03-05 06:17:09 FATAL LogTest - Bu bir fatal mesajıdır

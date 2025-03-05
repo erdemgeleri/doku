@@ -1,0 +1,19 @@
+package com.doku.frames.SocketTest;
+
+import javax.swing.*;
+import java.io.*;
+import java.net.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // İlk önce server frame'i başlat
+        SwingUtilities.invokeLater(() -> {
+            new ServerFrame(); // ServerFrame'i başlat
+        });
+
+        // Sonrasında client frame'i başlat
+        SwingUtilities.invokeLater(() -> {
+            new ClientFrame(); // ClientFrame'i başlat
+        });
+    }
+}

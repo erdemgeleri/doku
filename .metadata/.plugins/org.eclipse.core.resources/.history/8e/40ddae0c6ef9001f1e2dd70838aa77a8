@@ -1,0 +1,5 @@
+package com.doku.model;
+
+public class User {
+
+}

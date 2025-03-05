@@ -1,0 +1,57 @@
+import java.io.*;
+import java.net.*;
+import javax.swing.*;
+
+public class ClientFrame extends JFrame {
+    private JTextArea textArea;
+    private JTextField messageField;
+
+    public ClientFrame() {
+        setTitle("Client");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        add(new JScrollPane(textArea), "Center");
+
+        messageField = new JTextField();
+        add(messageField, "South");
+
+        JButton sendButton = new JButton("Send");
+        sendButton.addActionListener(e -> sendMessage());
+        add(sendButton, "East");
+
+        setVisible(true);
+
+        // Bağlantıyı başlat
+        startClient();
+    }
+
+    public void startClient() {
+        try {
+            // Sunucuya bağlan
+            Socket socket = new Socket("localhost", 1234);
+            textArea.append("Sunucuya bağlanıldı.\n");
+
+            // Mesajı gönder
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+            // Kullanıcıdan gelen mesajları gönderecek
+            while (true) {
+                String message = messageField.getText();
+                if (!message.isEmpty()) {
+                    writer.println(message);
+                    textArea.append("Mesaj gönderildi: " + message + "\n");
+                    messageField.setText("");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(ClientFrame::new);
+    }
+}
