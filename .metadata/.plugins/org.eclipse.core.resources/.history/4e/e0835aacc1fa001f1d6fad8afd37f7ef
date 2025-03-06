@@ -1,0 +1,22 @@
+package com.doku;
+
+import javax.swing.SwingUtilities;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.doku.frames.UserFrame.RegisterFrame;
+
+@SpringBootApplication
+public class MainApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(MainApplication.class, args);
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				new RegisterFrame().setVisible(true);
+			}
+		});
+	}
+}

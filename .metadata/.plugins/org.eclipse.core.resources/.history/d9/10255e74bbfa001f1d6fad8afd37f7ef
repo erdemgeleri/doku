@@ -1,0 +1,15 @@
+package com.doku.service;
+
+import com.doku.repository.ParentRepository;
+
+public class ParentService {
+	private ParentRepository parentRepository;
+	
+	public ParentService() {
+		parentRepository = new ParentRepository();
+	}
+	
+	public void addParent(int id) {
+		
+	}
+}

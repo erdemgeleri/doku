@@ -1,0 +1,26 @@
+package com.doku.service;
+
+import java.util.List;
+
+import com.doku.model.Users.Parent;
+import com.doku.repository.ParentRepository;
+
+public class ParentService {
+	private ParentRepository parentRepository;
+	
+	public ParentService() {
+		parentRepository = new ParentRepository();
+	}
+	
+	public void addParent(Parent parent) {
+		parentRepository.addParent(parent);
+	}
+	
+	public Parent getParentById(int id) {
+		return parentRepository.getParentById(id);
+	}
+	
+	public List<Parent> getAllParents(){
+		
+	}
+}

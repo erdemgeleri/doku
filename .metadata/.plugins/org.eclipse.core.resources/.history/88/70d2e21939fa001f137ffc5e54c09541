@@ -1,0 +1,5 @@
+package com.doku.model.Users;
+
+public class PasswordUtils {
+	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+}

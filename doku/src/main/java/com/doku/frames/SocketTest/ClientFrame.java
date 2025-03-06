@@ -33,7 +33,7 @@ public class ClientFrame extends JFrame {
     }
 
     public void connectToServer() {
-        SwingWorker<Void, String> worker = new SwingWorker<>() {
+        SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
             @Override
             protected Void doInBackground() throws Exception {
                 try {

@@ -1,0 +1,52 @@
+package com.doku.frames.ParentFrame;
+
+import javax.swing.*;
+import com.doku.model.Users.Parent;
+import com.doku.service.ParentService;
+
+public class ParentFrame extends JFrame {
+
+    private JTextField nameField;
+    private JTextField emailField;
+    private ParentService parentService;
+
+    public ParentFrame() {
+        parentService = new ParentService();  // ParentService nesnesini oluşturuyoruz
+
+        // UI bileşenlerini oluşturma (JTextField'ler, JButton'lar vs.)
+        nameField = new JTextField(20);
+        emailField = new JTextField(20);
+
+        JButton addButton = new JButton("Add Parent");
+        addButton.addActionListener(e -> addParent());  // Butona tıklanınca addParent() metodunu çağır
+
+        // Layout ayarları
+        this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        this.add(new JLabel("Name:"));
+        this.add(nameField);
+        this.add(new JLabel("Email:"));
+        this.add(emailField);
+        this.add(addButton);
+
+        // Frame ayarları
+        this.pack();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+    private void addParent() {
+        String name = nameField.getText();
+        String email = emailField.getText();
+
+        Parent parent = new Parent(name, email);  // Parent nesnesi oluşturuluyor
+        parentService.addParent(parent);  // Parent'i veritabanına ekliyoruz
+
+        // Ekranı temizliyoruz
+        nameField.setText("");
+        emailField.setText("");
+    }
+
+    public static void main(String[] args) {
+        new ParentFrame();
+    }
+}

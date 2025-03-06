@@ -1,0 +1,105 @@
+package com.doku.frames.UserFrame;
+
+import javax.swing.*;
+
+import com.doku.model.Users.PasswordUtils;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+
+public class RegisterFrame extends JFrame {
+    
+    private JTextField firstNameField, lastNameField, emailField, phoneField;
+    private JPasswordField passwordField;
+    private JButton registerButton;
+    
+    public RegisterFrame() {
+        setTitle("Parent Registration");
+        setSize(300, 350);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // Layout
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        setContentPane(panel);
+        
+        JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setBounds(30, 30, 80, 30);
+        panel.add(firstNameLabel);
+        
+        firstNameField = new JTextField();
+        firstNameField.setBounds(120, 30, 150, 30);
+        panel.add(firstNameField);
+        
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setBounds(30, 80, 80, 30);
+        panel.add(lastNameLabel);
+        
+        lastNameField = new JTextField();
+        lastNameField.setBounds(120, 80, 150, 30);
+        panel.add(lastNameField);
+        
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setBounds(30, 130, 80, 30);
+        panel.add(emailLabel);
+        
+        emailField = new JTextField();
+        emailField.setBounds(120, 130, 150, 30);
+        panel.add(emailField);
+        
+        JLabel phoneLabel = new JLabel("Phone:");
+        phoneLabel.setBounds(30, 180, 80, 30);
+        panel.add(phoneLabel);
+        
+        phoneField = new JTextField();
+        phoneField.setBounds(120, 180, 150, 30);
+        panel.add(phoneField);
+        
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setBounds(30, 230, 80, 30);
+        panel.add(passwordLabel);
+        
+        passwordField = new JPasswordField();
+        passwordField.setBounds(120, 230, 150, 30);
+        panel.add(passwordField);
+        
+        registerButton = new JButton("Register");
+        registerButton.setBounds(90, 270, 120, 30);
+        panel.add(registerButton);
+        
+        // Register Button Action
+        registerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Kullanıcı bilgilerini al
+                String firstName = firstNameField.getText();
+                String lastName = lastNameField.getText();
+                String email = emailField.getText();
+                String phone = phoneField.getText();
+                String password = new String(passwordField.getPassword());
+                
+                // Password hashing işlemi
+                String hashedPassword = PasswordUtils.hashPassword(password);
+                
+                // Veritabanına kaydetme işlemi burada yapılacak
+                Parent parent = new Parent(firstName, lastName, email, phone, hashedPassword);
+                
+                // Burada parent'ı veritabanına kaydedebilirsiniz.
+                // parentRepository.save(parent);
+                
+                JOptionPane.showMessageDialog(null, "Registration Successful!");
+                dispose();
+                new LoginFrame().setVisible(true); // Giriş ekranına dön
+            }
+        });
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterFrame().setVisible(true);
+            }
+        });
+    }
+}

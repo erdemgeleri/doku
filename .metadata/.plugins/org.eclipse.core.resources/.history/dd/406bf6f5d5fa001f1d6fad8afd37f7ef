@@ -1,0 +1,35 @@
+package com.util;
+
+import com.doku.model.Users.Parent;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+public class HibernateTest {
+    public static void main(String[] args) {
+        // HibernateUtil sınıfından SessionFactory'yi alıyoruz
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
+            // Bir Parent nesnesi oluşturuyoruz
+            Parent parent = new Parent("John", "Doe", "1234567890", "john.doe@example.com", "password123");
+
+            // Transaction başlatıyoruz
+            Transaction transaction = session.beginTransaction();
+
+            // Parent nesnesini kaydediyoruz
+            session.save(parent);
+
+            // Transaction'ı commit ediyoruz
+            transaction.commit();
+
+            System.out.println("Parent başarıyla kaydedildi: " + parent.getUserId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Session'ı kapatıyoruz
+            session.close();
+            // Hibernate bağlantısını kapatıyoruz
+            HibernateUtil.shutdown();
+        }
+    }
+}

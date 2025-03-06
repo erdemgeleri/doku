@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;dokuproject&apos;" deleteContents="false" description="Delete resource &apos;dokuproject&apos;" element1="/dokuproject" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1741046172261"/>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;dokuproject&apos;" deleteContents="false" description="Delete resource &apos;dokuproject&apos;" element1="/dokuproject" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1741046172261"/>&#x0A;<refactoring comment="Delete resource &apos;doku/src/main/java/com/doku/util&apos;" deleteContents="false" description="Delete resource &apos;doku/src/main/java/com/doku/util&apos;" element1="/doku/src/main/java/com/doku/util" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1741278336084"/>
 </session>

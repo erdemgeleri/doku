@@ -1,0 +1,110 @@
+package com.doku.repository;
+
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+import com.doku.model.Users.Kid;
+import com.doku.util.HibernateUtil;
+
+public class KidRepository {
+	
+	private SessionFactory sessionFactory;
+	
+	public KidRepository() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+	}
+	//Çocuk ekleme kısmı
+	public void save(Kid kid) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction transaction = null;
+		
+		try {
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(kid);
+			transaction.commit();
+		}catch(Exception e){
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	//Çocuk silmi kısmı
+	public void delete(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction transaction = null;
+		
+		try {
+			transaction = session.beginTransaction();
+			Kid kid = session.get(Kid.class, id);
+			if(kid != null) {
+				session.delete(kid);
+			}
+			transaction.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	//Çocuk listeleme kısmı
+	public List<Kid> getAll(){
+		Session session = sessionFactory.getCurrentSession();
+		List<Kid> kids = null;
+		
+		try {
+			session.beginTransaction();
+			kids = session.createQuery("from Kid", Kid.class).getResultList();
+			session.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return kids;
+	}
+	
+	//Kid'i ID'ye göre getirme
+	public Kid getById(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Kid kid = null;
+		
+		try {
+			session.beginTransaction();
+			kid = session.get(Kid.class, id)
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

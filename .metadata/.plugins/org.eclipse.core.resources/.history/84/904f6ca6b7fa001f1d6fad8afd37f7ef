@@ -1,0 +1,16 @@
+package com.doku.service;
+
+import com.doku.repository.KidRepository;
+
+public class KidService {
+	
+	private KidRepository kidRepository;
+	
+	public KidService() {
+		kidRepository = new KidRepository();
+	}
+	
+	public void addKid(Kid kid) {
+		kidRepository.addKid(kid);
+	}
+}

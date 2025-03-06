@@ -37,7 +37,7 @@ public class ServerFrame extends JFrame {
     }
 
     public void startServer() {
-        SwingWorker<Void, String> worker = new SwingWorker<>() {
+        SwingWorker<Void, String> worker = new SwingWorker<Void, String>() {
             @Override
             protected Void doInBackground() throws Exception {
                 try {

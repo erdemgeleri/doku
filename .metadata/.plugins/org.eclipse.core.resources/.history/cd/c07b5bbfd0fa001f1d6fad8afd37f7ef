@@ -1,0 +1,26 @@
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.doku.model.Users.Parent;
+
+public class HibernateTest {
+    public static void main(String[] args) {
+        try {
+            System.out.println("📌 Hibernate Session Açılıyor...");
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+
+            // Test amaçlı bir Parent nesnesi ekleyelim.
+            Parent parent = new Parent("Ali", "Veli", "ali@example.com", "05555555555", "password123");
+            session.save(parent);
+
+            transaction.commit();
+            session.close();
+            System.out.println("✅ Veri eklendi ve Hibernate çalışıyor!");
+
+        } catch (Exception e) {
+            System.err.println("❌ Hibernate Hatası: " + e);
+            e.printStackTrace();
+        }
+    }
+}

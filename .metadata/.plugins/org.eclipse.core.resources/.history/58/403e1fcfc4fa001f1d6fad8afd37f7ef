@@ -1,0 +1,122 @@
+package com.doku.frames.ParentFrame;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.doku.service.ParentService;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+
+public class ParentSignUp extends JFrame {
+	
+	private ParentService parentService;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField tfName;
+	private JTextField tfLastName;
+	private JTextField tfEmail;
+	private JTextField tfPhoneNumber;
+	private JPasswordField pfPassword;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ParentSignUp frame = new ParentSignUp();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ParentSignUp() {
+		parentService = new ParentService();
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 791, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblName = new JLabel("İsim");
+		lblName.setBounds(10, 28, 46, 14);
+		contentPane.add(lblName);
+		
+		JLabel lblLastName = new JLabel("Soyisim");
+		lblLastName.setBounds(10, 63, 46, 14);
+		contentPane.add(lblLastName);
+		
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setBounds(10, 96, 46, 14);
+		contentPane.add(lblEmail);
+		
+		tfName = new JTextField();
+		tfName.setBounds(175, 25, 86, 20);
+		contentPane.add(tfName);
+		tfName.setColumns(10);
+		
+		tfLastName = new JTextField();
+		tfLastName.setColumns(10);
+		tfLastName.setBounds(175, 60, 86, 20);
+		contentPane.add(tfLastName);
+		
+		tfEmail = new JTextField();
+		tfEmail.setColumns(10);
+		tfEmail.setBounds(175, 93, 86, 20);
+		contentPane.add(tfEmail);
+		
+		JLabel lblPhoneNumber = new JLabel("Telefon Numarası");
+		lblPhoneNumber.setBounds(10, 131, 86, 14);
+		contentPane.add(lblPhoneNumber);
+		
+		tfPhoneNumber = new JTextField();
+		tfPhoneNumber.setColumns(10);
+		tfPhoneNumber.setBounds(175, 128, 86, 20);
+		contentPane.add(tfPhoneNumber);
+		
+		JLabel lblPassword = new JLabel("Şifre");
+		lblPassword.setBounds(10, 162, 86, 14);
+		contentPane.add(lblPassword);
+		
+		JButton btnSignUp = new JButton("Kayıt Ol");
+		btnSignUp.setBounds(172, 203, 89, 23);
+		contentPane.add(btnSignUp);
+		
+		pfPassword = new JPasswordField();
+		pfPassword.setBounds(175, 159, 89, 20);
+		contentPane.add(pfPassword);
+	}
+	private void addParent() {
+		String firstName = tfName.getText();
+		String lastName = tfLastName.getText();
+		String eMail = tfEmail.getText();
+		String phoneNumber = tfPhoneNumber.getText();
+		String password = new String(pfPassword.getPassword());
+		
+		if(firstName.isEmpty() || lastName.isEmpty() || eMail.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Tüm alanları doldurduğunuzdan emin olun.");
+			return;
+		}
+		
+		if(!isValidEmail(eMail)) {
+			
+		}
+	}
+}

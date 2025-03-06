@@ -1,0 +1,19 @@
+package com.doku.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.doku.model.Users.Parent;
+import com.doku.repository.ParenRepository;
+import com.doku.repository.ParentRepository;
+
+@Service
+public class ParentService {
+
+	@Autowired
+	private ParentRepository parentRepository;
+	
+	public Parent saveParent(Parent parent) {
+		return parentRepository.save(parent);
+	}
+}

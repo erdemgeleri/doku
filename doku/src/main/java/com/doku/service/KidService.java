@@ -1,0 +1,35 @@
+package com.doku.service;
+
+import java.util.List;
+
+import com.doku.model.Users.Kid;
+import com.doku.repository.KidRepository;
+
+public class KidService {
+	
+	private KidRepository kidRepository;
+	
+	public KidService() {
+		kidRepository = new KidRepository();
+	}
+	
+	public void addKid(Kid kid) {
+		kidRepository.addKid(kid);
+	}
+	
+	public Kid getKidById(int id) {
+		return kidRepository.getKidById(id);
+	}
+	
+	public List<Kid> getAllKids(){
+		return kidRepository.getAllKids();
+	}
+	
+	public void updateKid(Kid kid) {
+		kidRepository.updateKid(kid);
+	}
+	
+	public void deleteKid(int id) {
+		kidRepository.deleteKid(id);
+	}
+}

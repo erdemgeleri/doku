@@ -1,0 +1,8 @@
+package com.doku.model.Users;
+
+
+public class PasswordUtils {
+	public static String hashPassword(String Password) {
+		
+	}
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-configuration>
+    <session-factory>
+        <!-- Veritabanı Bağlantısı ve Dialektiği -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/doku</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">bil123</property>
+
+        <!-- C3P0 Connection Pool Ayarları -->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+
+        <!-- Diğer Hibernate Ayarları -->
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Entity Sınıflarının Tanımlanması -->
+        <mapping class="com.doku.model.Users.Parent"/>
+        <mapping class="com.doku.model.Users.Kid"/>
+        <mapping class="com.doku.model.Users.User"/> <!-- Düzeltildi: User sınıfının doğru yolu -->
+    </session-factory>
+</hibernate-configuration>

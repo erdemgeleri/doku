@@ -1,0 +1,5 @@
+package com.doku.util;
+
+public class HibernateTest {
+
+}

@@ -1,0 +1,6 @@
+package com.doku.model.Users;
+
+
+public class PasswordUtils {
+	
+}

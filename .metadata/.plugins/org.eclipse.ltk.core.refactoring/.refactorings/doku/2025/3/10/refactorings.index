@@ -8,3 +8,31 @@
 1741046874010	Delete element
 1741046912998	Delete element
 1741144609045	Delete element
+1741172056898	Delete element
+1741227523140	Delete element
+1741227541659	Delete element
+1741229504964	Rename resource 'Parent.java'
+1741229514951	Rename resource 'Kid.java'
+1741229543743	Rename resource 'Parrent.java'
+1741277581438	Delete element
+1741277706852	Move 'ParenRepository.java' to 'repository'
+1741277757604	Move 'KidRepository.java' to 'repository'
+1741277940147	Move 'KidService.java' to 'service'
+1741277942977	Move 'ParentService.java' to 'service'
+1741278333114	Delete element
+1741279381020	Move 'asdasd.java' to 'KidFrame'
+1741279393066	Delete element
+1741279395555	Delete element
+1741279397923	Delete element
+1741279400486	Delete element
+1741279722164	Delete element
+1741279988618	Delete element
+1741279994262	Delete element
+1741280244339	Move 'HibernateTestForm.java' to 'HibernateTest'
+1741283348540	Delete element
+1741283702753	Delete element
+1741283704645	Delete element
+1741289544752	Delete element
+1741297800190	Move 'util' to 'com'
+1741298233355	Delete element
+1741298931249	Move 'User.java' to 'Users'
