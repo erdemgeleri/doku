@@ -9,7 +9,6 @@
     <fullyQualifiedTypeName name="org.hibernate.annotations.Parent"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="java.lang.Long"/>
-    <fullyQualifiedTypeName name="com.doku.model.Users.PasswordUtils"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.SpringBootApplication"/>
@@ -31,10 +30,14 @@
     <fullyQualifiedTypeName name="org.hibernate.Transaction"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="com.doku.repository.ParentRepository"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.doku.model.Users.Parent"/>
-    <fullyQualifiedTypeName name="com.util.HibernateUtil"/>
     <fullyQualifiedTypeName name="com.doku.model.Users.User"/>
     <fullyQualifiedTypeName name="com.doku.service.ParentService"/>
+    <fullyQualifiedTypeName name="java.awt.JobAttributes"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="com.util.HibernateUtil"/>
+    <fullyQualifiedTypeName name="com.doku.model.Users.PasswordUtils"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

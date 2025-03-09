@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 
 public class RegisterFrame extends JFrame {
     
-    private JTextField firstNameField, lastNameField, emailField, phoneField;
-    private JPasswordField passwordField;
-    private JButton registerButton;
+    private JTextField tbFirstName, tbLastName, tbEmail, tbPhone;
+    private JPasswordField tbPassword;
+    private JButton btnRegister;
     
     public RegisterFrame() {
-        setTitle("Parent Registration");
+        setTitle("Ebeveyn Kayıt Ekranı");
         setSize(300, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -25,65 +25,65 @@ public class RegisterFrame extends JFrame {
         panel.setLayout(null);
         setContentPane(panel);
         
-        JLabel firstNameLabel = new JLabel("First Name:");
-        firstNameLabel.setBounds(30, 30, 80, 30);
-        panel.add(firstNameLabel);
+        JLabel lblFirstName = new JLabel("İsim:");
+        lblFirstName.setBounds(30, 30, 80, 30);
+        panel.add(lblFirstName);
         
-        firstNameField = new JTextField();
-        firstNameField.setBounds(120, 30, 150, 30);
-        panel.add(firstNameField);
+        tbFirstName = new JTextField();
+        tbFirstName.setBounds(120, 30, 150, 30);
+        panel.add(tbFirstName);
         
-        JLabel lastNameLabel = new JLabel("Last Name:");
-        lastNameLabel.setBounds(30, 80, 80, 30);
-        panel.add(lastNameLabel);
+        JLabel lblLastName = new JLabel("Soyisim:");
+        lblLastName.setBounds(30, 80, 80, 30);
+        panel.add(lblLastName);
         
-        lastNameField = new JTextField();
-        lastNameField.setBounds(120, 80, 150, 30);
-        panel.add(lastNameField);
+        tbLastName = new JTextField();
+        tbLastName.setBounds(120, 80, 150, 30);
+        panel.add(tbLastName);
         
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(30, 130, 80, 30);
-        panel.add(emailLabel);
+        JLabel lblEmail = new JLabel("Email:");
+        lblEmail.setBounds(30, 130, 80, 30);
+        panel.add(lblEmail);
         
-        emailField = new JTextField();
-        emailField.setBounds(120, 130, 150, 30);
-        panel.add(emailField);
+        tbEmail = new JTextField();
+        tbEmail.setBounds(120, 130, 150, 30);
+        panel.add(tbEmail);
         
-        JLabel phoneLabel = new JLabel("Phone:");
-        phoneLabel.setBounds(30, 180, 80, 30);
-        panel.add(phoneLabel);
+        JLabel lblPhone = new JLabel("Telefon:");
+        lblPhone.setBounds(30, 180, 80, 30);
+        panel.add(lblPhone);
         
-        phoneField = new JTextField();
-        phoneField.setBounds(120, 180, 150, 30);
-        panel.add(phoneField);
+        tbPhone = new JTextField();
+        tbPhone.setBounds(120, 180, 150, 30);
+        panel.add(tbPhone);
         
-        JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(30, 230, 80, 30);
-        panel.add(passwordLabel);
+        JLabel lblPassword = new JLabel("Şifre:");
+        lblPassword.setBounds(30, 230, 80, 30);
+        panel.add(lblPassword);
         
-        passwordField = new JPasswordField();
-        passwordField.setBounds(120, 230, 150, 30);
-        panel.add(passwordField);
+        tbPassword = new JPasswordField();
+        tbPassword.setBounds(120, 230, 150, 30);
+        panel.add(tbPassword);
         
-        registerButton = new JButton("Register");
-        registerButton.setBounds(90, 270, 120, 30);
-        panel.add(registerButton);
+        btnRegister = new JButton("Kayıt Ol");
+        btnRegister.setBounds(90, 270, 120, 30);
+        panel.add(btnRegister);
         
-        registerButton.addActionListener(new ActionListener() {
+        btnRegister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String email = emailField.getText();
-                String phone = phoneField.getText();
-                String password = new String(passwordField.getPassword());
+                String firstName = tbFirstName.getText();
+                String lastName = tbLastName.getText();
+                String email = tbEmail.getText();
+                String phone = tbPhone.getText();
+                String password = new String(tbPassword.getPassword());
                 
-                String hashedPassword = PasswordUtils.hashPassword(password);
                 
-                Parent parent = new Parent(firstName, lastName, email, phone, hashedPassword);
+                Parent parent = new Parent(firstName, lastName, phone, email, password);
                 ParentService parentService = new ParentService();
                 parentService.addParent(parent);
                 
                 JOptionPane.showMessageDialog(null, "Registration Successful!");
+                System.out.println(password);
                 dispose();
                 new LoginFrame().setVisible(true); 
             }

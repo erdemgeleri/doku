@@ -8,7 +8,6 @@ import java.util.List;
 
 public class KidRepository {
 
-    // Kid ekler
     public void addKid(Kid kid) {
         Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = null;
@@ -26,7 +25,6 @@ public class KidRepository {
         }
     }
 
-    // ID'ye göre Kid'i getirir
     public Kid getKidById(int id) {
         Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
         Kid kid = null;
@@ -42,7 +40,6 @@ public class KidRepository {
         return kid;
     }
 
-    // Tüm Kid'leri getirir
     public List<Kid> getAllKids() {
         Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
         List<Kid> kids = null;
@@ -58,7 +55,6 @@ public class KidRepository {
         return kids;
     }
 
-    // Kid günceller
     public void updateKid(Kid kid) {
         Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = null;
@@ -76,7 +72,6 @@ public class KidRepository {
         }
     }
 
-    // Kid siler
     public void deleteKid(int id) {
         Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = null;

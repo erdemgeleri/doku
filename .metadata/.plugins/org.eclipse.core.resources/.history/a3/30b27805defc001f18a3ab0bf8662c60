@@ -1,0 +1,112 @@
+package com.doku.model.Users;
+
+import com.doku.model.Users.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.*;
+
+
+
+@Entity
+@Table(name = "parent", uniqueConstraints = {@UniqueConstraint(columnNames = "Email")})
+public class Parent {
+    // ----------------------------------------------------
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long user_id;
+    
+    @Column(name = "FirstName", nullable = false, length = 30)
+    private String first_name;
+    
+    @Column(name = "LastName", nullable = false, length = 30)
+    private String last_name;
+    
+    @Column(name = "Email", nullable = false, unique = true, length = 50)
+    private String e_mail;
+    
+    @Column(name = "PhoneNumber", nullable = false, unique = true, length = 25)
+    private String phone_number;
+    
+    @Column(name = "Password", nullable = false, length = 255)
+    private String password; // Şifrenin hash'lenmiş hali
+    
+    @Column(name = "DateCreated", nullable = false, updatable = false)
+    private LocalDateTime date_created;
+    
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Kid> kids = new ArrayList<>();
+    
+    @PrePersist
+    protected void onCreate() {
+        this.date_created = LocalDateTime.now();
+    }
+    
+    // ----------------------------------------------------
+    public Parent() {}
+    
+    public Parent(String first_name, String last_name, String phone_number, String e_mail, String password) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.e_mail = e_mail;
+        this.phone_number = phone_number;
+        this.setPassword(password); // Şifre hash'leniyor
+    }
+    
+    public Long getUserId() {
+        return user_id;
+    }
+
+    public void setUserId(Long user_id) {
+        this.user_id = user_id;
+    }
+    
+    public String getFirstName() {
+        return first_name;
+    }
+
+    public void setFirstName(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLastName() {
+        return last_name;
+    }
+
+    public void setLastName(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getEmail() {
+        return e_mail;
+    }
+
+    public void setEmail(String e_mail) {
+        this.e_mail = e_mail;
+    }
+
+    public String getPhoneNumber() {
+        return phone_number;
+    }
+
+    public void setPhoneNumber(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = PasswordUtils.hashPassword(password); // Şifreyi hash'liyoruz
+    }
+
+    // getKids yerine getKid plural olarak değiştirilmiş
+    public List<Kid> getKids() {
+        return kids;
+    }
+
+    public void setKids(List<Kid> kids) {
+        this.kids = kids;
+    }
+}

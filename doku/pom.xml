@@ -13,28 +13,26 @@
   </properties>
 
   <dependencies>
-    <!-- Hibernate Core -->
+  
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>6.2.0.Final</version> <!-- Hibernate 6.x -->
+        <version>6.2.0.Final</version> 
     </dependency>
     
-    <!-- Jakarta Persistence API -->
     <dependency>
         <groupId>jakarta.persistence</groupId>
         <artifactId>jakarta.persistence-api</artifactId>
         <version>3.1.0</version>
     </dependency>
 
-    <!-- PostgreSQL JDBC Driver -->
     <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>42.5.4</version> <!-- Güncel PostgreSQL sürümü -->
+        <version>42.5.4</version> 
     </dependency>
 
-    <!-- Log4j2 for logging -->
+ 
     <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-core</artifactId>
@@ -46,7 +44,6 @@
         <version>2.20.0</version>
     </dependency>
 
-    <!-- JUnit 5 API -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
@@ -54,7 +51,6 @@
         <scope>test</scope>
     </dependency>
 
-    <!-- JUnit 5 Engine -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
@@ -62,7 +58,7 @@
         <scope>test</scope>
     </dependency>
 
-    <!-- BCrypt for password hashing -->
+
     <dependency>
         <groupId>org.mindrot</groupId>
         <artifactId>jbcrypt</artifactId>
@@ -72,7 +68,6 @@
 
   <build>
     <plugins>
-      <!-- Plugin to package the app as a runnable jar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -80,4 +75,6 @@
       </plugin>
     </plugins>
   </build>
+  
+  
 </project>

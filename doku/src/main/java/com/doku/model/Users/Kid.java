@@ -44,7 +44,6 @@ public class Kid {
         this.date_created = LocalDateTime.now();
     }
 
-    // Parent ile ilişki kuruluyor
     @ManyToOne
     @JoinColumn(name = "parent_id", nullable = false)
     private Parent parent;
@@ -61,7 +60,6 @@ public class Kid {
         this.parent = parent; // Parent'ı ekliyoruz
     }
 
-    // Getter ve Setter metodları
     public Long getUserId() {
         return user_id;
     }

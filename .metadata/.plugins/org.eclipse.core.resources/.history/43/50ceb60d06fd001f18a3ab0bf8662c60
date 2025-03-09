@@ -1,0 +1,179 @@
+package com.doku.repository;
+
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import com.doku.model.Users.Kid;
+import com.doku.model.Users.Parent;
+import com.doku.model.Users.PasswordUtils;
+import com.util.HibernateUtil;
+
+public class ParentRepository {
+	
+	private SessionFactory sessionFactory;
+	//Parent ekleme işlemi
+	public void addParent(Parent parent) {
+		Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = null;
+		
+		try {
+			transaction = session.beginTransaction();
+			session.save(parent);
+			transaction.commit();
+		}catch(Exception ex) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			ex.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+	
+	// Kid ekleme işlemi
+    public void addKidToParent(Long parentId, Kid kid) {
+        try (Session session = com.util.HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            try {
+                Parent parent = session.get(Parent.class, parentId); // Parent'ı ID'ye göre alıyoruz
+                if (parent != null) {
+                    parent.getKids().add(kid); // Parent'a Kid ekliyoruz
+                    kid.setParent(parent); // Kid'e Parent'ı set ediyoruz
+                    session.save(kid); // Kid'i kaydediyoruz
+                    transaction.commit(); // Değişiklikleri kaydediyoruz
+                }
+            } catch (Exception ex) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	//ID'ye göre parent getir
+	public Parent getParentById(long id) {
+		Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
+		Parent parent = null;
+		try {
+			session.beginTransaction();
+			parent = session.get(Parent.class, id);
+			session.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return parent;
+	}
+	
+	//Mail'e ve şifreye göre parent getir
+	public Parent authenticateParent(String email, String password) {
+	    if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+	        return null;
+	    }
+
+	    Session session = HibernateUtil.getSessionFactory().openSession();
+	    Parent parent = null;
+	    
+	    try {
+	        session.beginTransaction();
+	        
+	        Query<Parent> query = session.createQuery("FROM Parent WHERE e_mail = :email", Parent.class);
+	        query.setParameter("email", email);
+	        parent = query.uniqueResult();
+
+	        if (parent == null) {
+	            session.getTransaction().rollback();
+	            return null;  // Email bulunamadı
+	        }
+
+	        if (!PasswordUtils.checkPassword(password, parent.getPassword())) {
+	            session.getTransaction().rollback();
+	            return null;  // Geçersiz şifre
+	        }
+
+	        session.getTransaction().commit();
+	        return parent; // Başarılı giriş
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	        if (session.getTransaction() != null) {
+	            session.getTransaction().rollback();
+	        }
+	        return null;
+	    } finally {
+	        if (session != null && session.isOpen()) {
+	            session.close();
+	        }
+	    }
+	}
+
+	
+	//Tüm parent'leri getir
+	public List<Parent> getAllParent(){
+		Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
+		List<Parent> parents = null;
+		try {
+			session.beginTransaction();
+			parents = session.createQuery("from Parent", Parent.class).getResultList();
+			session.getTransaction().commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return parents;
+	}
+	
+	//Parenti güncelle
+	public void updateParent(Parent parent) {
+		Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = null;
+		
+		try {
+			transaction = session.beginTransaction();
+			session.update(parent);
+			transaction.commit();
+		}catch(Exception ex) {
+			if(transaction != null) {
+				transaction.rollback();
+			}
+			ex.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	//Parenti sil
+	public void deleteParent(int id) {
+	    Session session = com.util.HibernateUtil.getSessionFactory().getCurrentSession();
+	    Transaction transaction = null;
+
+	    try {
+	        transaction = session.beginTransaction();
+	        Parent parent = session.get(Parent.class, id);
+	        if (parent != null) {
+	            session.delete(parent);  // ID yerine parent nesnesi silinmeli
+	        }
+	        transaction.commit();
+	    } catch (Exception ex) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        ex.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+	}
+}

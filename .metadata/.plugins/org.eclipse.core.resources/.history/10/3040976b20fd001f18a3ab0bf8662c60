@@ -1,0 +1,51 @@
+package com.doku.frames.ParentFrame;
+
+import com.doku.model.Users.PasswordUtils;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+public class testclass {
+    public static void main(String[] args) {
+        String hashedPasswordFromDB = getHashedPasswordFromDatabase(7);
+        if (hashedPasswordFromDB == null) {
+            System.out.println("ID'si 7 olan kullanıcı bulunamadı!");
+            return;
+        }
+        
+        System.out.println("Veritabanındaki hash'lenmiş şifre: " + hashedPasswordFromDB);
+
+        String plainPassword = "emre";
+        String a = PasswordUtils.hashPassword(plainPassword);
+        boolean isMatch = PasswordUtils.checkPassword(plainPassword, hashedPasswordFromDB);
+        System.out.println("Şifre eşleşiyor mu? " + isMatch);
+        boolean isMatch2 = PawordUtils.checkPassword
+        System.out.println("Şifre eşleşiyor mu 2 : " + isMatch2);
+    }
+
+    private static String getHashedPasswordFromDatabase(int userId) {
+        Session session = null;
+        String hashedPassword = null;
+
+        try {
+            session = com.util.HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+
+            Query<String> query = session.createQuery("SELECT password FROM Parent WHERE user_id = :userId", String.class);
+            query.setParameter("userId", userId);
+            hashedPassword = query.uniqueResult();
+
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (session != null && session.getTransaction() != null && session.getTransaction().isActive()) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return hashedPassword;
+    }
+}

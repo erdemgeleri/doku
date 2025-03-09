@@ -1,0 +1,17 @@
+package com.doku.frames.ParentFrame;
+
+import com.doku.model.Users.PasswordUtils;
+
+public class testclass {
+    public static void main(String[] args) {
+        String plainPassword = "test123";
+        
+        // Şifreyi hash'le
+        String hashedPassword = PasswordUtils.hashPassword(plainPassword);
+        System.out.println("Hash'lenmiş şifre: " + hashedPassword);
+        
+        // Şifreyi doğrula
+        boolean isMatch = PasswordUtils.checkPassword(plainPassword, hashedPassword);
+        System.out.println("Şifre eşleşiyor mu? " + isMatch);
+    }
+}

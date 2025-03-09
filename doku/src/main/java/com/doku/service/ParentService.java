@@ -20,6 +20,11 @@ public class ParentService {
 		return parentRepository.getParentById(id);
 	}
 	
+	public Parent authenticateParent(String email, String password) {
+		return parentRepository.authenticateParent(email, password);
+	}
+	
+	
 	public List<Parent> getAllParents(){
 		return parentRepository.getAllParent();
 	}
@@ -31,4 +36,5 @@ public class ParentService {
 	public void deleteParent(int id) {
 		parentRepository.deleteParent(id);
 	}
+	
 }

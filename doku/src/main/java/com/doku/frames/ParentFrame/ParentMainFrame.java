@@ -1,43 +1,32 @@
 package com.doku.frames.ParentFrame;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
+
+import java.awt.*;
+import com.doku.model.Users.Parent;  
 
 public class ParentMainFrame extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private Parent parent;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ParentMainFrame frame = new ParentMainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public ParentMainFrame(Parent parent) {
+        this.parent = parent;
 
-	/**
-	 * Create the frame.
-	 */
-	public ParentMainFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 740, 450);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setTitle("Ana Panel");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 740, 450);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-	}
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblParentInfo = new JLabel("Anne: " + parent.getFirstName() + " " + parent.getLastName());
+        lblParentInfo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lblParentInfo.setBounds(10, 10, 300, 30);
+        contentPane.add(lblParentInfo);
+    }
 }

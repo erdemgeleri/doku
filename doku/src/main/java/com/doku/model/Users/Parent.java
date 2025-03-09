@@ -1,5 +1,6 @@
 package com.doku.model.Users;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class Parent {
         this.last_name = last_name;
         this.e_mail = e_mail;
         this.phone_number = phone_number;
-        this.setPassword(password); // Şifre hash'leniyor
+        this.setPassword(password); 
     }
     
     public Long getUserId() {
@@ -97,10 +98,16 @@ public class Parent {
     }
 
     public void setPassword(String password) {
-        this.password = PasswordUtils.hashPassword(password); // Şifreyi hash'liyoruz
+        this.password = PasswordUtils.hashPassword(password); 
+    }
+    
+    public LocalDateTime getDateCreated() {
+    	return date_created;
+    }
+    public void setDateCreated(LocalDateTime date_created) {
+    	this.date_created = date_created;
     }
 
-    // getKids yerine getKid plural olarak değiştirilmiş
     public List<Kid> getKids() {
         return kids;
     }

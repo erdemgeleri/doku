@@ -1,0 +1,101 @@
+package com.doku.frames.UserFrame;
+
+import javax.swing.*;
+
+import com.doku.model.Users.Parent;
+import com.doku.model.Users.PasswordUtils;
+import com.doku.service.ParentService;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RegisterFrame extends JFrame {
+    
+    private JTextField tbFirstName, tbLastName, tbEmail, tbPhone;
+    private JPasswordField tbPassword;
+    private JButton btnRegister;
+    
+    public RegisterFrame() {
+        setTitle("Ebeveyn Kayıt Ekranı");
+        setSize(300, 350);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        setContentPane(panel);
+        
+        JLabel lblFirstName = new JLabel("İsim:");
+        lblFirstName.setBounds(30, 30, 80, 30);
+        panel.add(lblFirstName);
+        
+        tbFirstName = new JTextField();
+        tbFirstName.setBounds(120, 30, 150, 30);
+        panel.add(tbFirstName);
+        
+        JLabel lblLastName = new JLabel("Soyisim:");
+        lblLastName.setBounds(30, 80, 80, 30);
+        panel.add(lblLastName);
+        
+        tbLastName = new JTextField();
+        tbLastName.setBounds(120, 80, 150, 30);
+        panel.add(tbLastName);
+        
+        JLabel lblEmail = new JLabel("Email:");
+        lblEmail.setBounds(30, 130, 80, 30);
+        panel.add(lblEmail);
+        
+        tbEmail = new JTextField();
+        tbEmail.setBounds(120, 130, 150, 30);
+        panel.add(tbEmail);
+        
+        JLabel lblPhone = new JLabel("Telefon:");
+        lblPhone.setBounds(30, 180, 80, 30);
+        panel.add(lblPhone);
+        
+        tbPhone = new JTextField();
+        tbPhone.setBounds(120, 180, 150, 30);
+        panel.add(tbPhone);
+        
+        JLabel lblPassword = new JLabel("Şifre:");
+        lblPassword.setBounds(30, 230, 80, 30);
+        panel.add(lblPassword);
+        
+        tbPassword = new JPasswordField();
+        tbPassword.setBounds(120, 230, 150, 30);
+        panel.add(tbPassword);
+        
+        btnRegister = new JButton("Kayıt Ol");
+        btnRegister.setBounds(90, 270, 120, 30);
+        panel.add(btnRegister);
+        
+        btnRegister.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String firstName = tbFirstName.getText();
+                String lastName = tbLastName.getText();
+                String email = tbEmail.getText();
+                String phone = tbPhone.getText();
+                String password = new String(tbPassword.getPassword());
+                
+                String hashedPassword = PasswordUtils.hashPassword(password);
+                
+                Parent parent = new Parent(firstName, lastName, phone, email, hashedPassword);
+                ParentService parentService = new ParentService();
+                parentService.addParent(parent);
+                
+                JOptionPane.showMessageDialog(null, "Registration Successful!");
+                System.out.println(hashedPassword);
+                dispose();
+                new LoginFrame().setVisible(true); 
+            }
+        });
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new RegisterFrame().setVisible(true);
+            }
+        });
+    }
+}
